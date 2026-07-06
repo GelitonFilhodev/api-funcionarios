@@ -4,16 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon src/server.js",
     "test": "jest",
-    "build":"echo\"Build realizado com sucesso\""
+    "build": "echo\"Build realizado com sucesso\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "nodemon": "^3.1.14"
+    "mysql2": "^3.22.5",
+    "nodemon": "^3.1.14",
+    "sequelize": "^6.37.8"
   },
   "devDependencies": {
     "jest": "^30.4.2",
