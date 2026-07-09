@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "apiuser",
+    "password": "123456",
+    "database": "api_funcionarios",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "apiuser",
+    "password": "123456",
+    "database": "api_funcionarios",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "apiuser",
+    "password": "123456",
+    "database": "api_funcionarios",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
