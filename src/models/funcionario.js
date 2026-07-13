@@ -14,6 +14,12 @@ const Funcionario = sequelize.define('Funcionario',{
   cargo: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+
+  salario:{
+    type:DataTypes.DECIMAL,
+    allowNull: false
   }
+  
 })
 module.exports = Funcionario
