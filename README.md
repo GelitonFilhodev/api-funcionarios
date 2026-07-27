@@ -1,72 +1,43 @@
 # API Funcionários
 
-API REST simples para gerenciar funcionários (CRUD) construída com Node.js e Express.
+API REST para gerenciar funcionários (CRUD básico) construída com Node.js, Express e Sequelize.
 
-## Descrição
-Endpoints para listar, criar, atualizar e remover funcionários — projetada como base para estudos ou pequenas aplicações internas.
+## Visão geral
+Este serviço expõe endpoints para listagem e cadastro de funcionários. Ao cadastrar um funcionário, o serviço também notifica o microserviço de benefícios (integração via HTTP).
 
-## Tecnologias
-- Node.js
-- Express
-- (opcional) SQLite / MongoDB / outro DB
-- dotenv
+Observações do código:
+- Endpoints definidos em `src/routes/funcionarioRouter.js`: GET /funcionarios e POST /funcionarios.
+- Modelo Sequelize: `src/models/funcionario.js` com campos:
+  - id (integer, autoincrement)
+  - nome (string, obrigatório)
+  - cargo (string, obrigatório)
+  - salario (decimal, obrigatório)
+- Integração: ao cadastrar (`cadastrar`), é feito um POST para `${process.env.API_BENEFICIOS}/beneficios` com { funcionarioId, salario, cargo }.
+- O servidor inicializa em `src/server.js` e chama `sequelize.sync()` (cria/atualiza tabelas automaticamente).
+- Scripts (package.json):
+  - start: `nodemon src/server.js`
+  - test: `jest`
 
-## Pré-requisitos
+## Requisitos
 - Node.js >= 16
-- npm ou yarn
-- (opcional) MongoDB ou outro banco conforme configuração
+- Banco MySQL (configurado via Sequelize) — ou adaptação para outro dialect suportado
+- Variáveis de ambiente (exemplo):
+  - DB_NAME
+  - DB_USER
+  - DB_PASSWORD
+  - DB_HOST
+  - API_BENEFICIOS (URL do microserviço de benefícios)
+  - (opcional) NODE_ENV
 
-## Instalação
+## Como executar (local)
 1. Clone:
-   ```bash
    git clone https://github.com/GelitonFilhodev/api-funcionarios.git
    cd api-funcionarios
-   ```
 2. Instale dependências:
-   ```bash
    npm install
-   ```
-3. Crie um `.env` (exemplo abaixo) e inicie:
-   ```bash
-   cp .env.example .env
+3. Crie um `.env` com as variáveis acima (exemplo abaixo).
+4. Inicie:
    npm start
-   # ou para desenvolvimento
-   npm run dev
-   ```
+   (o código usa `nodemon` então reinícios são automáticos em dev)
 
-## Exemplo de .env
-```
-PORT=3000
-DB_URL=sqlite://./database.sqlite
-# ou DB_URL=mongodb://localhost:27017/funcionarios
-```
-
-## Endpoints (exemplos)
-- GET /employees — lista todos
-- GET /employees/:id — obter por id
-- POST /employees — criar
-  - body exemplo:
-    ```json
-    {
-      "name": "João Silva",
-      "email": "joao@exemplo.com",
-      "position": "Desenvolvedor"
-    }
-    ```
-- PUT /employees/:id — atualizar
-- DELETE /employees/:id — remover
-
-## Estrutura sugerida
-- src/
-  - routes/
-  - controllers/
-  - models/
-  - services/
-- index.js ou app.js
-- package.json
-
-## Testes
-Se houver configuração:
-```bash
-npm test
-```
+Exemplo de `.env`:
